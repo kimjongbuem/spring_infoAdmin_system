@@ -18,10 +18,8 @@ class PersonRepositoryTest {
 
     @Test
     void crud(){
-        Person person = new Person();
+        Person person = new Person("martin");
 
-        person.setName("martin");
-        person.setAge(10);
 
         personRepository.save(person);
         System.out.println(personRepository.findAll());
