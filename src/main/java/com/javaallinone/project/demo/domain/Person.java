@@ -2,6 +2,7 @@ package com.javaallinone.project.demo.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
+@ToString(exclude = "hobby")
 public class Person {
 
     @GeneratedValue
@@ -18,14 +20,14 @@ public class Person {
 
     private String name;
 
-    private int age;
+    @ToString.Exclude
+    private String hobby;
 
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                '}';
-    }
+    private String address;
+
+    private String birthday;
+
+    private String job;
+
+    private int age;
 }
