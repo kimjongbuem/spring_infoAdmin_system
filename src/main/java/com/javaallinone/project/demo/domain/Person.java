@@ -3,9 +3,8 @@ package com.javaallinone.project.demo.domain;
 import com.sun.istack.NotNull;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -28,9 +27,12 @@ public class Person {
 
     private String address;
 
-    private String birthday;
+    private LocalDate birthday;
 
     private String job;
-
+    @NonNull
     private int age;
+
+    @OneToOne(cascade =CascadeType.ALL, orphanRemoval = true ,fetch = FetchType.EAGER)
+    private Block block;
 }

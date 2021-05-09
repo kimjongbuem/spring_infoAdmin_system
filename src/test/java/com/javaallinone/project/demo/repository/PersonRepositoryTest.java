@@ -18,7 +18,7 @@ class PersonRepositoryTest {
 
     @Test
     void crud(){
-        Person person = new Person("martin");
+        Person person = new Person("martin" , 10);
 
 
         personRepository.save(person);
