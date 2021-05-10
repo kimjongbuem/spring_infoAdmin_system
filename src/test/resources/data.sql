@@ -1,0 +1,1 @@
+insert into person(id, name, age, blood) values(1, 'martikkn', 12, 'A');

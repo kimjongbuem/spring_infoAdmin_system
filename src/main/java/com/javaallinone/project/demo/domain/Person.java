@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 public class Person {
 
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private long id;
 
@@ -25,11 +25,11 @@ public class Person {
     private String name;
 
     @NonNull
-    private String bloodType;
-
-    @NonNull
     @Min(0)
     private int age;
+
+    @NonNull
+    private String blood;
 
     @Embedded
     @Valid

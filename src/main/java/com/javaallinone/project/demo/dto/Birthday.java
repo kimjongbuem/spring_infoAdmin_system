@@ -10,18 +10,19 @@ import javax.validation.constraints.Min;
 import java.time.LocalDate;
 
 @Embeddable
+@AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class Birthday {
-    private int year;
+    private Integer year;
 
     @Min(1)
     @Max(12)
-    private int month;
+    private Integer month;
 
     @Min(1)
     @Max(31)
-    private int day;
+    private Integer day;
 
     public Birthday(LocalDate birthday){
         this.year = birthday.getYear();

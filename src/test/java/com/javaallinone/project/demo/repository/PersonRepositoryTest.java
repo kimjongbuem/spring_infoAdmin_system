@@ -21,13 +21,14 @@ class PersonRepositoryTest {
 
     @Test
     void crud(){
-        Person person = new Person("martin" , "A", 10);
+        Person person = new Person("martin" , 10, "A");
 
         personRepository.save(person);
         System.out.println(personRepository.findAll());
         List<Person> peoples = personRepository.findAll();
-        assertThat(peoples.size()).isEqualTo(1);
-        assertThat(peoples.get(0).getName()).isEqualTo("martin");
+        assertThat(peoples.size()).isEqualTo(2);
+        assertThat(peoples.get(0).getName()).isEqualTo("martikkn");
+        assertThat(peoples.get(0).getBlood()).isEqualTo("A");
     }
 
     @Test
@@ -41,12 +42,12 @@ class PersonRepositoryTest {
 
         for (Person p : person) {
             System.out.println("name: " + p.getName() + " " + "age: " + p.getAge() +
-                    "blood : " + p.getBloodType() + " " + "BirthDay: " + p.getBirthday());
+                    "blood : " + p.getBlood() + " " + "BirthDay: " + p.getBirthday());
         }
     }
 
     private void givenPerson(String name, int age, String bloodType, LocalDate localDate){
-        Person person = new Person(name,  bloodType, age);
+        Person person = new Person(name,  age, bloodType);
         person.setBirthday(new Birthday(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth()));
         personRepository.save(person);
     }
