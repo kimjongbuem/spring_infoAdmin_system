@@ -29,6 +29,8 @@ public class Person {
 
     private LocalDate birthday;
 
+    private String bloodType;
+
     private String job;
     @NonNull
     private int age;

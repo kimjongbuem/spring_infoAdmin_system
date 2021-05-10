@@ -20,7 +20,6 @@ class PersonRepositoryTest {
     void crud(){
         Person person = new Person("martin" , 10);
 
-
         personRepository.save(person);
         System.out.println(personRepository.findAll());
         List<Person> peoples = personRepository.findAll();

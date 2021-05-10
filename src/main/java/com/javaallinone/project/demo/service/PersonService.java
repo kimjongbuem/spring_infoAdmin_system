@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,13 +20,24 @@ public class PersonService {
     PersonRepository personRepository;
 
     public List<Person> getPeopleExcludeBlocks(){
-        List<Person> people = personRepository.findAll();
-        return people.stream().filter(person -> person.getBlock() == null).collect(Collectors.toList());
+        return personRepository.findByBlockIsNull();
     }
 
     @Transactional(readOnly = true)
     public Person getPerson(Long id){
         return personRepository.findById(id).get();
+    }
+
+    public List<Person> getPeopleByName(String name) {
+        return personRepository.findByName(name);
+    }
+
+    public List<Person> getPeopleByBloodType(String bloodType) {
+        return personRepository.findByBloodType(bloodType);
+    }
+
+    public List<Person> getPeopleByBirthDay(LocalDate start, LocalDate end){
+        return personRepository.findByBirthdayBetween(start, end);
     }
 
 }

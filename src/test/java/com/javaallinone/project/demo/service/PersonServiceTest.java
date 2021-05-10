@@ -30,6 +30,23 @@ class PersonServiceTest {
     }
 
     @Test
+    void getPeopleByName(){
+        givenPeople();
+        List<Person> people = personService.getPeopleByName("martin");
+        System.out.println(people.size()+" "+people.get(0).getName() + " "+ people.get(0).getAge());
+    }
+
+    @Test
+    void getPeopleByBloodType(){
+        givenPeople();
+        List<Person> people = personService.getPeopleByBloodType("A");
+        System.out.println(people.size()+" "+people.get(0).getName() + " "+ people.get(0).getAge());
+
+        people = personService.getPeopleByBloodType("B");
+        System.out.println(people.size()+" "+people.get(0).getName() + " "+ people.get(0).getAge());
+    }
+
+    @Test
     void cascadeTest(){
         givenPeople();
         List<Person> lists = personRepository.findAll();
@@ -71,6 +88,7 @@ class PersonServiceTest {
     private void givenBlockPerson(String name , int age){
         Person blockPerson = new Person(name, age);
         blockPerson.setBlock(new Block(name));
+        blockPerson.setBloodType("B");
         personRepository.save(blockPerson);
     }
 
@@ -82,6 +100,9 @@ class PersonServiceTest {
     }
 
     private void givenPerson(String name, int age) {
-        personRepository.save(new Person(name, age));
+        Person person = new Person(name, age);
+        person.setBloodType("A");
+        personRepository.save(person);
+
     }
 }
