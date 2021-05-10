@@ -35,9 +35,7 @@ public class PersonService {
     public List<Person> getPeopleByBloodType(String bloodType) {
         return personRepository.findByBloodType(bloodType);
     }
-
-    public List<Person> getPeopleByBirthDay(LocalDate start, LocalDate end){
-        return personRepository.findByBirthdayBetween(start, end);
-    }
-
+//    public List<Person> getPeopleByBirthDayOfMonth(int month){
+//        return personRepository.findByMonth(month);
+//    }
 }

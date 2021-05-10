@@ -86,9 +86,8 @@ class PersonServiceTest {
     }
 
     private void givenBlockPerson(String name , int age){
-        Person blockPerson = new Person(name, age);
+        Person blockPerson = new Person(name, "B",age);
         blockPerson.setBlock(new Block(name));
-        blockPerson.setBloodType("B");
         personRepository.save(blockPerson);
     }
 
@@ -100,8 +99,7 @@ class PersonServiceTest {
     }
 
     private void givenPerson(String name, int age) {
-        Person person = new Person(name, age);
-        person.setBloodType("A");
+        Person person = new Person(name,"A", age);
         personRepository.save(person);
 
     }
