@@ -17,16 +17,9 @@ class BlcokRepositoryTest {
 
     @Test
     void crud(){
-        Block block = new Block("kjb");
-        block.setReason("친하지않아서");
-        block.setSD(LocalDate.now());
-        block.setED(LocalDate.now());
-
-        blockRepository.save(block);
-
         List<Block> blockList = blockRepository.findAll();
 
-        assertThat(blockList.size()).isEqualTo(1);
+        assertThat(blockList.size()).isEqualTo(2);
         assertThat(blockList.get(0).getName()).isEqualTo("kjb");
     }
 }

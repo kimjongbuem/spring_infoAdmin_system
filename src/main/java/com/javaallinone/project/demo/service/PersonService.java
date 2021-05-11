@@ -35,7 +35,8 @@ public class PersonService {
     public List<Person> getPeopleByBloodType(String bloodType) {
         return personRepository.findByBlood(bloodType);
     }
-//    public List<Person> getPeopleByBirthDayOfMonth(int month){
-//        return personRepository.findByMonth(month);
-//    }
+
+    public List<Person> getPeopleByBirthDayOfMonth(int month){
+        return personRepository.findByBirthDayMonth(month);
+    }
 }
