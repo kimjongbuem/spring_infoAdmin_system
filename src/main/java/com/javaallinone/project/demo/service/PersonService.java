@@ -27,8 +27,6 @@ public class PersonService {
     @Transactional(readOnly = true)
     public Person getPerson(Long id){
         return personRepository.findById(id).orElse(null);
-
-
     }
 
     public List<Person> getPeopleByName(String name) {
@@ -41,5 +39,10 @@ public class PersonService {
 
     public List<Person> getPeopleByBirthDayOfMonth(int month){
         return personRepository.findByBirthDayMonth(month);
+    }
+
+    @Transactional
+    public void put(Person person) {
+        personRepository.save(person);
     }
 }

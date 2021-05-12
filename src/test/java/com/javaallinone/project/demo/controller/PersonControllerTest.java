@@ -30,4 +30,13 @@ class PersonControllerTest {
         .content( "{\"id\":1,\"name\":\"kjb\",\"age\":26,\"blood\":\"B\",\"birthday\":{\"birthday_year\":1996,\"birthday_month\":3,\"birthday_day\":7},\"hobby\":null,\"address\":null,\"job\":null,\"block\":{\"id\":1,\"name\":\"kjb\",\"reason\":null,\"sd\":null,\"ed\":null}")
         ). andExpect(status().isOk());
     }
+
+
+
+    @Test
+    void putPerson() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/person?name=kjb&age=20&blood=A")
+        .contentType(MediaType.APPLICATION_JSON).content("{\"name\" : \"kjb\" , \"age\":\"20\", \"blood\" : \"A\"}")
+        ). andExpect(status().isCreated());
+    }
 }

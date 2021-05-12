@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
 @Entity
@@ -22,6 +23,8 @@ public class Person {
     private long id;
 
     @NonNull
+    @NotEmpty
+    @Column(nullable = false)
     private String name;
 
     @NonNull
@@ -29,6 +32,8 @@ public class Person {
     private int age;
 
     @NonNull
+    @NotEmpty
+    @Column(nullable = false)
     private String blood;
 
     @Embedded
