@@ -2,6 +2,8 @@ package com.javaallinone.project.demo.service;
 
 import com.javaallinone.project.demo.domain.Block;
 import com.javaallinone.project.demo.domain.Person;
+import com.javaallinone.project.demo.dto.Birthday;
+import com.javaallinone.project.demo.dto.PersonDto;
 import com.javaallinone.project.demo.repository.BlockRepository;
 import com.javaallinone.project.demo.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -44,5 +46,23 @@ public class PersonService {
     @Transactional
     public void put(Person person) {
         personRepository.save(person);
+    }
+
+    @Transactional
+    public void modify(Long id, PersonDto person) {
+        Person personDB = personRepository.findById(id).orElseThrow(()->new RuntimeException("아이디 존재 x"));
+
+        personDB.set(person);
+
+        personRepository.save(personDB);
+    }
+
+    @Transactional
+    public void modify(Long id, String name) {
+        Person personDB = personRepository.findById(id).orElseThrow(()->new RuntimeException("아이디 존재 x"));
+
+        personDB.setName(name); // 이름만 수정.
+
+        personRepository.save(personDB);
     }
 }

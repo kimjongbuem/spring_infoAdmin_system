@@ -39,4 +39,18 @@ class PersonControllerTest {
         .contentType(MediaType.APPLICATION_JSON).content("{\"name\" : \"kjb\" , \"age\":\"20\", \"blood\" : \"A\"}")
         ). andExpect(status().isCreated());
     }
+
+    @Test
+    void modifyPerson() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/person/put/1")
+                .contentType(MediaType.APPLICATION_JSON).content("{\"name\" : \"kjb\" , \"age\":\"20\", \"blood\" : \"A\"}")
+        ). andExpect(status().isOk());
+    }
+
+    @Test
+    void modifyName() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/person/patch/1")
+                .param("name", "kbj")
+        ). andExpect(status().isOk());
+    }
 }

@@ -1,6 +1,7 @@
 package com.javaallinone.project.demo.controller;
 
 import com.javaallinone.project.demo.domain.Person;
+import com.javaallinone.project.demo.dto.PersonDto;
 import com.javaallinone.project.demo.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,5 +22,18 @@ public class PersonController {
     public void postPerson(Person person){
         personService.put(person);
     }
+
+    @PutMapping(value = "/api/person/put/{id}")
+    public void modifyPerson(@PathVariable("id") Long id, @RequestBody PersonDto personDto){
+        personService.modify(id, personDto);
+
+    }
+
+    @PutMapping(value = "/api/person/patch/{id}")
+    public void patchPerson(@PathVariable("id") Long id, String name){
+        personService.modify(id, name);
+
+    }
+
 
 }
