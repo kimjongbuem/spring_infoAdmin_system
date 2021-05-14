@@ -4,6 +4,8 @@ import com.javaallinone.project.demo.dto.Birthday;
 import com.javaallinone.project.demo.dto.PersonDto;
 import com.sun.istack.NotNull;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Where;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
@@ -21,6 +23,7 @@ import static org.springframework.util.StringUtils.isEmpty;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @EqualsAndHashCode
+@Where(clause = "deleted = false")
 public class Person {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,6 +56,9 @@ public class Person {
 
     @OneToOne(cascade =CascadeType.ALL, orphanRemoval = true ,fetch = FetchType.EAGER)
     private Block block;
+
+    @ColumnDefault("0")
+    private boolean deleted = false;
 
     public void set(PersonDto personDto){
 

@@ -29,10 +29,14 @@ public class PersonController {
 
     }
 
-    @PutMapping(value = "/api/person/patch/{id}")
+    @PatchMapping(value = "/api/person/patch/{id}")
     public void patchPerson(@PathVariable("id") Long id, String name){
         personService.modify(id, name);
+    }
 
+    @DeleteMapping(value = "/api/person/delete/{id}")
+    public void deletePerson(@PathVariable("id") Long id){
+        personService.delete(id);
     }
 
 

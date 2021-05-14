@@ -1,5 +1,6 @@
 package com.javaallinone.project.demo.controller;
 
+import com.javaallinone.project.demo.repository.PersonRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ class PersonControllerTest {
     @Autowired
     PersonController controller;
     private MockMvc mockMvc;
+
+    @Autowired
+    PersonRepository personRepository;
 
     @BeforeEach
     void init(){
@@ -49,8 +53,17 @@ class PersonControllerTest {
 
     @Test
     void modifyName() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/person/patch/1")
+        mockMvc.perform(MockMvcRequestBuilders.patch("/api/person/patch/1")
                 .param("name", "kbj")
         ). andExpect(status().isOk());
+    }
+
+    @Test
+    void deletePerson() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/person/delete/1")
+        ). andExpect(status().isOk());
+
+        System.out.println(personRepository.findPeopleDeleted().size());
+
     }
 }

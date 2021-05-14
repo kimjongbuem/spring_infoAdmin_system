@@ -65,4 +65,11 @@ public class PersonService {
 
         personRepository.save(personDB);
     }
+
+    @Transactional
+    public void delete(Long id) {
+        Person personDB = personRepository.findById(id).orElseThrow(()->new RuntimeException("아이디 존재 x"));
+        personDB.setDeleted(true);
+        personRepository.save(personDB);
+    }
 }
