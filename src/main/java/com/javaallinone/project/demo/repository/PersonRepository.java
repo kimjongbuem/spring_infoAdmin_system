@@ -13,16 +13,11 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 
     List<Person> findByName(String name);
 
-    List<Person> findByBlockIsNull();
-
     @Query(value = "select person from Person person where person.birthday.birthday_month = ?1")
     List<Person> findByBirthDayMonth(int month);
 
 //    @Query(value = "select person from Person person where person.birthday.month = ?1 and person.birthday.day = ?2" ) // ,nativeQuery = true
 //    List<Person> findByMonth(int month, int day);
-
-    List<Person> findByBlood(String bloodType);
-
     @Query(value = "select* from Person person where person.deleted = true", nativeQuery = true)
     List<Person> findPeopleDeleted();
 }

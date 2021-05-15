@@ -35,15 +35,6 @@ public class Person {
     @Column(nullable = false)
     private String name;
 
-    @NonNull
-    @Min(0)
-    private int age;
-
-    @NonNull
-    @NotEmpty
-    @Column(nullable = false)
-    private String blood;
-
     @Embedded
     @Valid
     private Birthday birthday;
@@ -54,8 +45,7 @@ public class Person {
 
     private String job;
 
-    @OneToOne(cascade =CascadeType.ALL, orphanRemoval = true ,fetch = FetchType.EAGER)
-    private Block block;
+    private String phoneNumber;
 
     @ColumnDefault("0")
     private boolean deleted = false;
@@ -64,10 +54,19 @@ public class Person {
 
         if(!name.equals(personDto.getName()))  throw new RuntimeException("이름이 같지 않습니다.");
 
-        if(personDto.getAge() != 0) age = personDto.getAge();
         if(isEmpty(personDto.getAddress())) address = personDto.getAddress();
         if(isEmpty(personDto.getHobby())) hobby = personDto.getHobby();
         if(isEmpty(personDto.getJob())) address = personDto.getJob();
-        if(isEmpty(personDto.getBlood())) address = personDto.getBlood();
+        if(isEmpty(personDto.getBirthday())) Birthday.of(personDto.getBirthday());
+    }
+
+
+    public Integer getAge(){
+        if(this.birthday != null)  return LocalDate.now().getYear() - this.birthday.getBirthday_year() + 1;
+        return null;
+    }
+
+    public boolean isBirthdayToday(){
+        return LocalDate.now().equals(LocalDate.of(birthday.getBirthday_year(), birthday.getBirthday_month(), birthday.getBirthday_day()));
     }
 }

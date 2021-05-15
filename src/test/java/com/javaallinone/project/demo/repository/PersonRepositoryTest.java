@@ -31,11 +31,10 @@ class PersonRepositoryTest {
         List<Person> person = personRepository.findByBirthDayMonth(3);
 
         assertThat(person.size()).isEqualTo(3);
-        assertThat(person.get(0).getBlood()).isEqualTo("B");
 
         for (Person p : person) {
             System.out.println("name: " + p.getName() + " " + "age: " + p.getAge() +
-                    "blood : " + p.getBlood() + " " + "BirthDay: " + p.getBirthday());
+                    " " + "BirthDay: " + p.getBirthday());
         }
     }
 }
