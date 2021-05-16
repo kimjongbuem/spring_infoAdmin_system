@@ -19,8 +19,8 @@ public class PersonController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/api/person")
-    public void postPerson(Person person){
-        personService.put(person);
+    public void postPerson(@RequestBody PersonDto personDto){
+        personService.put(personDto);
     }
 
     @PutMapping(value = "/api/person/put/{id}")
@@ -38,6 +38,5 @@ public class PersonController {
     public void deletePerson(@PathVariable("id") Long id){
         personService.delete(id);
     }
-
 
 }

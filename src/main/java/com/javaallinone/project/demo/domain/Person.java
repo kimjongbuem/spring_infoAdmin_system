@@ -43,21 +43,24 @@ public class Person {
 
     private String address;
 
-    private String job;
-
     private String phoneNumber;
+
+    private String job;
 
     @ColumnDefault("0")
     private boolean deleted = false;
 
     public void set(PersonDto personDto){
 
+        if(name == null) name= personDto.getName();
         if(!name.equals(personDto.getName()))  throw new RuntimeException("이름이 같지 않습니다.");
 
-        if(isEmpty(personDto.getAddress())) address = personDto.getAddress();
-        if(isEmpty(personDto.getHobby())) hobby = personDto.getHobby();
-        if(isEmpty(personDto.getJob())) address = personDto.getJob();
-        if(isEmpty(personDto.getBirthday())) Birthday.of(personDto.getBirthday());
+        address = personDto.getAddress();
+        hobby = personDto.getHobby();
+        address = personDto.getAddress();
+        job     = personDto.getJob();
+        phoneNumber = personDto.getPhoneNumber();
+        Birthday.of(personDto.getBirthday());
     }
 
 

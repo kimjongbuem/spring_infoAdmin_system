@@ -30,7 +30,9 @@ public class PersonService {
     }
 
     @Transactional
-    public void put(Person person) {
+    public void put(PersonDto personDto) {
+        Person person = new Person();
+        person.set(personDto);
         personRepository.save(person);
     }
 
