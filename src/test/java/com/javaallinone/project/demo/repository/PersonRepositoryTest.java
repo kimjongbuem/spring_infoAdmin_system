@@ -26,15 +26,36 @@ class PersonRepositoryTest {
         assertThat(peoples.get(0).getName()).isEqualTo("kjb");
     }
 
+
+    @Test
+    void findByName(){
+        List<Person> persons = personRepository.findByName("ims");
+        assertAll(
+                ()->assertThat(persons.get(0).getName()).isEqualTo("ims"),
+                ()->assertThat(persons.get(0).getBirthday()).isEqualTo(Birthday.of(LocalDate.of(1970 , 12, 28)))
+        );
+    }
+
+    @Test
+    void findByNameIsDeleted(){
+        List<Person> persons = personRepository.findByName("kkk");
+        assertThat(persons.size()).isEqualTo(0);
+    }
+
     @Test
     void monthOfBirthDay(){
         List<Person> person = personRepository.findByBirthDayMonth(3);
 
         assertThat(person.size()).isEqualTo(3);
+    }
 
-        for (Person p : person) {
-            System.out.println("name: " + p.getName() + " " + "age: " + p.getAge() +
-                    " " + "BirthDay: " + p.getBirthday());
-        }
+    @Test
+    void findPeopleDeleted(){
+        List<Person> person = personRepository.findPeopleDeleted();
+        assertThat(person.size()).isEqualTo(1);
+
+        assertAll(
+                ()->assertThat(person.get(0).getName()).isEqualTo("kkk")
+        );
     }
 }
