@@ -2,6 +2,7 @@ package com.javaallinone.project.demo.service;
 
 import com.javaallinone.project.demo.domain.Person;
 import com.javaallinone.project.demo.dto.PersonDto;
+import com.javaallinone.project.demo.exception.PersonNotFoundException;
 import com.javaallinone.project.demo.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class PersonService {
 
     @Transactional
     public void modify(Long id, PersonDto person) {
-        Person personDB = personRepository.findById(id).orElseThrow(()->new RuntimeException("아이디 존재 x"));
+        Person personDB = personRepository.findById(id).orElseThrow(PersonNotFoundException::new);
 
         personDB.set(person);
 
@@ -47,7 +48,7 @@ public class PersonService {
 
     @Transactional
     public void modify(Long id, String name) {
-        Person personDB = personRepository.findById(id).orElseThrow(()->new RuntimeException("아이디 존재 x"));
+        Person personDB = personRepository.findById(id).orElseThrow(PersonNotFoundException::new);
 
         personDB.setName(name); // 이름만 수정.
 
@@ -56,7 +57,7 @@ public class PersonService {
 
     @Transactional
     public void delete(Long id) {
-        Person personDB = personRepository.findById(id).orElseThrow(()->new RuntimeException("아이디 존재 x"));
+        Person personDB = personRepository.findById(id).orElseThrow(PersonNotFoundException::new);
         personDB.setDeleted(true);
         personRepository.save(personDB);
     }

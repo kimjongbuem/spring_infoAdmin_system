@@ -2,6 +2,7 @@ package com.javaallinone.project.demo.domain;
 
 import com.javaallinone.project.demo.dto.Birthday;
 import com.javaallinone.project.demo.dto.PersonDto;
+import com.javaallinone.project.demo.exception.RenameNotPermittedException;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -53,7 +54,7 @@ public class Person {
     public void set(PersonDto personDto){
 
         if(name == null) name= personDto.getName();
-        if(!name.equals(personDto.getName()))  throw new RuntimeException("이름이 같지 않습니다.");
+        if(!name.equals(personDto.getName()))  throw new RenameNotPermittedException();
 
         address = personDto.getAddress();
         hobby = personDto.getHobby();

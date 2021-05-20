@@ -3,6 +3,7 @@ package com.javaallinone.project.demo.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javaallinone.project.demo.dto.PersonDto;
+import com.javaallinone.project.demo.exception.handler.GlobalExceptionHandler;
 import com.javaallinone.project.demo.repository.PersonRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -16,6 +17,8 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.util.NestedServletException;
 
 import java.time.LocalDate;
@@ -28,8 +31,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @Transactional
 class PersonControllerTest {
-    @Autowired
-    PersonController controller;
     private MockMvc mockMvc;
 
     @Autowired
@@ -38,9 +39,12 @@ class PersonControllerTest {
     @Autowired
     ObjectMapper objectMapper;
 
+    @Autowired
+    private WebApplicationContext wac;
+
     @BeforeEach
     void init(){
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
     @Test
@@ -84,10 +88,19 @@ class PersonControllerTest {
 
         PersonDto personDto = new PersonDto("kbj", LocalDate.now(), "game","pangyo","010-2762-6870", "programmer");
 
-        assertThrows(NestedServletException.class, ()-> mockMvc.perform(MockMvcRequestBuilders.put("/api/person/put/1")
+         mockMvc.perform(MockMvcRequestBuilders.put("/api/person/put/1")
                 .contentType(MediaType.APPLICATION_JSON).content(toJsonString(personDto))
-        ). andExpect(status().isOk()));
+        ). andExpect(status().isBadRequest());
 
+    }
+
+    @Test
+    void modifyPersonNotFound() throws Exception {
+        PersonDto personDto = new PersonDto("kbj", LocalDate.now(), "game","pangyo","010-2762-6870", "programmer");
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/person/put/10")
+                .contentType(MediaType.APPLICATION_JSON).content(toJsonString(personDto))
+        ). andExpect(status().isBadRequest());
     }
 
 

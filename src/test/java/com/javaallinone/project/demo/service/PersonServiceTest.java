@@ -2,6 +2,8 @@ package com.javaallinone.project.demo.service;
 
 import com.javaallinone.project.demo.domain.Person;
 import com.javaallinone.project.demo.dto.PersonDto;
+import com.javaallinone.project.demo.exception.PersonNotFoundException;
+import com.javaallinone.project.demo.exception.RenameNotPermittedException;
 import com.javaallinone.project.demo.repository.PersonRepository;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
@@ -72,6 +74,13 @@ class PersonServiceTest {
     }
 
     @Test
+    void modifyIfNameDiff(){
+        PersonDto personDto = new PersonDto("kjb", LocalDate.now(), "game","pangyo","010-2762-6870", "programmer");
+        when(personRepository.findById(1L)).thenReturn(Optional.of(new Person("rrr")));
+        assertThrows(RenameNotPermittedException.class, ()-> personService.modify(1L, personDto));
+    }
+
+    @Test
     void modifyByname(){
         when(personRepository.findById(1L)).thenReturn(Optional.of(new Person("kjb")));
         personService.modify(1L, "zzz");
@@ -81,7 +90,7 @@ class PersonServiceTest {
     @Test
     void deleteByNameEmpty(){
         when(personRepository.findById(1L)).thenReturn(Optional.empty());
-        assertThrows(RuntimeException.class, ()-> personService.delete(1L));
+        assertThrows(PersonNotFoundException.class, ()-> personService.delete(1L));
     }
 
     @Test

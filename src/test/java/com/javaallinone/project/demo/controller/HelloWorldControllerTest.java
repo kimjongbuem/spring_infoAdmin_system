@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,16 +21,14 @@ class HelloWorldControllerTest {
     @Autowired
     private HelloWorldController helloWorldController;
 
+    @Autowired
+    private WebApplicationContext wac;
+
     private MockMvc mockMvc;
 
     @BeforeEach
     public void setup(){
-        mockMvc = MockMvcBuilders.standaloneSetup(helloWorldController).build();
-    }
-
-    @Test
-    public void helloWorld(){
-        assertThat(helloWorldController.helloWorld()).isEqualTo("helloworld");
+        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
     @Test

@@ -2,9 +2,13 @@ package com.javaallinone.project.demo.controller;
 
 import com.javaallinone.project.demo.domain.Person;
 import com.javaallinone.project.demo.dto.PersonDto;
+import com.javaallinone.project.demo.exception.PersonNotFoundException;
+import com.javaallinone.project.demo.exception.RenameNotPermittedException;
+import com.javaallinone.project.demo.exception.dto.ErrResponse;
 import com.javaallinone.project.demo.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
