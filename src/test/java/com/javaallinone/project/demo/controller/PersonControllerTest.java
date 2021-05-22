@@ -48,6 +48,12 @@ class PersonControllerTest {
     }
 
     @Test
+    void getAll() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/person").contentType(MediaType.APPLICATION_JSON)
+        ). andExpect(status().isOk());
+    }
+
+    @Test
     void getPerson() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/person/1").contentType(MediaType.APPLICATION_JSON)
         ). andExpect(status().isOk());
@@ -58,13 +64,13 @@ class PersonControllerTest {
 
         PersonDto personDto = new PersonDto("kjb", LocalDate.now(), "game","pangyo","010-2762-6870", "programmer");
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/person")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/person/post")
                 .contentType(MediaType.APPLICATION_JSON).content(toJsonString(personDto))
         ). andExpect(status().isCreated());
     }
 
     @Test
-    void postPersonIfNameIsNull() throws Exception {
+    void putPersonIfNameIsNull() throws Exception {
         PersonDto personDto = new PersonDto();
         mockMvc.perform(MockMvcRequestBuilders.put("/api/person/put/1")
                 .contentType(MediaType.APPLICATION_JSON).content(toJsonString(personDto))
@@ -72,7 +78,7 @@ class PersonControllerTest {
     }
 
     @Test
-    void postPersonIfNameIsEmpty() throws Exception {
+    void putPersonIfNameIsEmpty() throws Exception {
         PersonDto personDto = new PersonDto();
         personDto.setName("");
 
