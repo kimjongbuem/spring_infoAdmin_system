@@ -53,8 +53,6 @@ class PersonControllerTest {
         ). andExpect(status().isOk());
     }
 
-
-
     @Test
     void postPerson() throws Exception {
 
@@ -64,6 +62,25 @@ class PersonControllerTest {
                 .contentType(MediaType.APPLICATION_JSON).content(toJsonString(personDto))
         ). andExpect(status().isCreated());
     }
+
+    @Test
+    void postPersonIfNameIsNull() throws Exception {
+        PersonDto personDto = new PersonDto();
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/person/put/1")
+                .contentType(MediaType.APPLICATION_JSON).content(toJsonString(personDto))
+        ). andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void postPersonIfNameIsEmpty() throws Exception {
+        PersonDto personDto = new PersonDto();
+        personDto.setName("");
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/person/put/1")
+                .contentType(MediaType.APPLICATION_JSON).content(toJsonString(personDto))
+        ). andExpect(status().isBadRequest());
+    }
+
 
     @Test
     void modifyPerson() throws Exception {
